@@ -3,17 +3,19 @@
 #![no_main]
 #![no_std]
 
-//use core::{ffi::{c_void}, arch::asm};
+//build
+//cargo build --example bubblesort --release --features klee-replay
+
+//run with test tool
+//embedded-rust-debugger -c STM32F411RETx -w /home/carlosterberg/testsuite/ -e /home/carlosterberg/testsuite/target/thumbv7em-none-eabi/release/examples/bubblesort -k /home/carlosterberg/testingtesting/target/thumbv7em-none-eabihf/release/examples/klee-last/
+
 use bkpt_trace::{bkpt_enter, bkpt_end};
 use panic_halt as _;
-//use panic_rtt_target as _;
 use stm32f4;
 pub use cstr_core::CStr;
 #[allow(unused_imports)]
 use core::arch::asm;
 use klee_sys::klee_make_symbolic;
-use cortex_test_lib::bubble_sort;
-//use panic_klee as _;
 
 #[rtic::app(device =  stm32f4::stm32f411, dispatchers = [EXTI1])]
 mod app {
@@ -53,9 +55,25 @@ mod app {
 
 #[inline(never)]
 fn caller() {
-    let mut vec = [-2139062144,-2139062144,128,16777344];
+    let mut vec = [3,1,4,5];
     klee_make_symbolic!(&mut vec, "vec");
     bubble_sort(&mut vec);
 }
 
-// -c STM32F411RETx -w /home/carlosterberg/testsuite/ -e /home/carlosterberg/testsuite/target/thumbv7em-none-eabi/release/app -k /home/carlosterberg/testingtesting/target/thumbv7em-none-eabihf/release/deps/klee-last/
+#[inline(never)]
+pub fn bubble_sort(vec: &mut [i32]) {
+    loop {
+        let mut done = true;
+        for i in 0..vec.len()-1 {
+            if vec[i+1] < vec[i] {
+                done = false;
+                let temp = vec[i+1];
+                vec[i+1] = vec[i];
+                vec[i] = temp;
+            }
+        }
+        if done {
+            return;
+        }
+    }
+}
