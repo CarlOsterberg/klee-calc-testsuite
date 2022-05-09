@@ -7,7 +7,8 @@
 //cargo build --example bubblesort --release --features klee-replay
 
 //run with test tool
-//embedded-rust-debugger -c STM32F411RETx -w /home/carlosterberg/testsuite/ -e /home/carlosterberg/testsuite/target/thumbv7em-none-eabi/release/examples/bubblesort -k /home/carlosterberg/testingtesting/target/thumbv7em-none-eabihf/release/examples/klee-last/
+//make sure to have the correct .ktest files in /klee-last/
+//embedded-rust-debugger -c STM32F411RETx -w . -e target/thumbv7em-none-eabi/release/examples/bubblesort -k cortex-klee-tools-tests/target/thumbv7em-none-eabihf/release/examples/klee-last/
 
 use bkpt_trace::{bkpt_enter, bkpt_end};
 use panic_halt as _;

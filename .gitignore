@@ -3,7 +3,7 @@
 .gdb_history
 Cargo.lock
 target/
-ktest_results/
+ktests_results/
 
 # editor files
 .vscode/*

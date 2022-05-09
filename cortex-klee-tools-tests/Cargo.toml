@@ -1,0 +1,33 @@
+[package]
+name = "testingtesting"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies.klee-sys]
+git = "https://gitlab.henriktjader.com/pln/klee-sys.git"
+version = "0.2.0"
+
+[dependencies.panic-klee]
+git = "https://gitlab.henriktjader.com/pln/panic-klee.git"
+version = "0.1.0"
+
+[dependencies]
+cortex-test-lib = {git = "https://github.com/CarlOsterberg/cortex-klee-test-lib"}
+
+[features]
+klee-analysis = ["klee-sys/klee-analysis"]
+
+[profile.dev]
+panic = "abort"
+incremental = false # better optimization
+lto = true          # better optimization
+codegen-units = 1   # better optimization
+
+[profile.release]
+panic = "abort"
+debug = true        # better debugging
+incremental = false # better optimization
+lto = true          # better optimization
+codegen-units = 1   # better optimization
