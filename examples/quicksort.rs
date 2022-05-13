@@ -37,7 +37,7 @@ mod app {
     }
 
     #[task()]
-    fn foo(_: foo::Context) {
+    fn foo(mut cx: foo::Context) {
         bkpt_enter();
         caller();
         bkpt_end();

@@ -9,13 +9,13 @@ use panic_klee as _;
 #[inline(never)]
 #[no_mangle]
 fn main() {
-    let mut vec:u64 = 123791329;
+    let mut vec:u32 = 123791329;
     klee_make_symbolic!(&mut vec, "vec");
     count_primes(vec);
 }
 
 #[inline(never)]
-fn count_primes(max:u64) -> u8 {
+fn count_primes(max:u32) -> u32 {
     let mut count = 0;
     if max<2 {
         count
