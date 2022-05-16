@@ -1,5 +1,5 @@
 [package]
-name = "testingtesting"
+name = "cortex-klee-tools-tests"
 version = "0.1.0"
 edition = "2021"
 
@@ -15,6 +15,7 @@ version = "0.1.0"
 
 [dependencies]
 cortex-test-lib = {git = "https://github.com/CarlOsterberg/cortex-klee-test-lib"}
+no-std-compat = "0.4.1"
 
 [features]
 klee-analysis = ["klee-sys/klee-analysis"]

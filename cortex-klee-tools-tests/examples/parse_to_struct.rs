@@ -1,7 +1,7 @@
 #![no_std]
 #![no_main]
 
-//cortex-klee-tools --rust-example parse_to_struct
+//cortex-klee-tools --rust-example parse_to_struct --optimize
 
 use core::panic;
 

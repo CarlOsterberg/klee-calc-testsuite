@@ -1,7 +1,7 @@
 #![no_std]
 #![no_main]
 
-//cortex-klee-tools --rust-example primes
+//cortex-klee-tools --rust-example primes --optimize
 
 use klee_sys::klee_make_symbolic;
 use panic_klee as _;
